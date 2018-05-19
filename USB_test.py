@@ -1,13 +1,11 @@
-#!/usr/bin/python
-
 import sys
 import usb.core
 import usb.util
 
-dev = usb.core.find(idVendor=0x062a, idProduct=0x4101)
+dev = usb.core.find(idVendor=0x067b, idProduct=0x2303)
 
 if dev is None:
-        raise ValueError('Něco je špatně, zkus to znovu (Device not found)')
+        raise ValueError('Neco je spatne, zkus to znovu (Device not found)')
 
 cfg = dev.get_active_configuration()
 
@@ -20,11 +18,11 @@ if dev.is_kernel_driver_active(interface) is True:
 collected = 0
 attempts = 50
 
-while collected < attempts:
+while True:
 	try:
 		data = dev.read(endpoint.bEndpointAddress, endpoint.wMaxPacketSize)
-		collected += 
-		print data
+		collected += 1
+		print(str(data))
 	except usb.core.USBError as e:
 		data = None
 		if e.args == ('Operation timed out',):
