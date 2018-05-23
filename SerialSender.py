@@ -25,10 +25,13 @@ outlet = StreamOutlet(info, 32, 360)
 print("Now sending data...")
 with serial.Serial(port, 115200, timeout=1) as ser:
 	while True:
-		line = str(ser.readline())
-		print(line)
+		line = ser.readline()
+#		print(str(line))
 		length = len(line)
-		sample = int(line[2:length-5])
-		print(sample)
-		stamp = local_clock()
-		outlet.push_sample([sample], stamp)
+		try:
+			sample = int(line.decode('utf-8'))
+			print(sample)
+			stamp = local_clock()
+			outlet.push_sample([sample], stamp)
+		except ValueError as e:
+			print('No Value: {0}'.format(e))
