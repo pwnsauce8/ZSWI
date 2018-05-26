@@ -5,22 +5,4 @@
 * Roman Kalivoda
 * Zhanel Mukanova
 
-### Práce s GitHubem:
-
-* Create a fork of the project you want to contribute to, i.e. a copy of the original repository on GitHub.
-* Clone this fork to create a local repository.
-```
-git clone https://github.com/***/ZSWI.git
-```
-* Make changes to your copy of the original project.
-```
-git status
-git add .            / git add [file-name]
-git commit -m "***"
-git push https://github.com/***/ZSWI.git
-```
-* Rabase
-```
-VCS/Git/Rebase my GitHub fork
-```
-* Create a pull request  (to lze udelat na github.com -> New pull request)
+[Podrobná informace o projektu](https://github.com/pwnsauce8/ZSWI/wiki/Semestr%C3%A1ln%C3%AD-pr%C3%A1ce-z-ZSWI-2017-2018)
