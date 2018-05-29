@@ -2,15 +2,19 @@
 import serial
 # needed for creating timestamp
 import time
-# needed just for testing
-from random import random as rand
 # pyLSL module
 from pylsl import StreamInfo, StreamOutlet, local_clock
 
+# sets device to be read (e.g. /dev/ttyUSB0)
 port = input('type SerialPort to use:')
+rate = input('set sampling rate of the connected device:')
 
-# setting of informations about LSL stream
-info = StreamInfo('TestStream', 'EMG', 1, 100, 'int32', 'ZSWI')
+"""
+setting of informations about LSL stream.
+Order of arguments: name of the stream, content type, number of channels, sampling rate,
+and stream indentifier (useful for auto-recovering interrupted connections
+"""
+info = StreamInfo('EMG_Stream', 'EMG', 1, rate, 'int32', 'ZSWI')
 
 # appending metadata to stream
 info.desc().append_child_value("owner", "EEGLab KIV ZCU")
@@ -20,6 +24,8 @@ channels.append_child("channel") \
         .append_child_value("unit", "int") \
         .append_child_value("type", "EMG data")
 
+# creating outlet with given info, with chunk size 32 samples and
+# buffer size set to 360 seconds
 outlet = StreamOutlet(info, 32, 360)
 
 print("Now sending data...")
@@ -29,9 +35,9 @@ with serial.Serial(port, 115200, timeout=1) as ser:
 #		print(str(line))
 		length = len(line)
 		try:
+			stamp = local_clock()
 			sample = int(line.decode('utf-8'))
 			print(sample)
-			stamp = local_clock()
 			outlet.push_sample([sample], stamp)
 		except ValueError as e:
 			print('No Value: {0}'.format(e))
