@@ -13,7 +13,7 @@ from pylsl import StreamInfo, StreamOutlet
 # connections wouldn't auto-recover). The important part is that the
 # content-type is set to 'Markers', because then other programs will know how
 #  to interpret the content
-info = StreamInfo('MyMarkerStream', 'Markers', 1, 0, 'string', 'myuidw43536')
+info = StreamInfo('MyMarkerStream', 'Markers', 1, 100, 'string', 'myuidw43536')
 
 # next make an outlet
 outlet = StreamOutlet(info)
